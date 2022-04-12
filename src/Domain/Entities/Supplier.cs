@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SupplyChainManager.Domain.Entities;
 
-public class Supplier : AuditableEntity
+public class Supplier : AuditableEntity, IHasDomainEvent
 {
 
     [Key]
@@ -20,6 +20,5 @@ public class Supplier : AuditableEntity
     public string? ContactNumber { get; set; }
 
     public DateTime Joined { get; set; }
-
-
+    public List<DomainEvent> DomainEvents { get; set; } = new List<DomainEvent>();
 }
