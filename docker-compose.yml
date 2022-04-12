@@ -20,9 +20,17 @@ services:
     depends_on:
       - db
     restart: on-failure
-
   db:
     image: "mcr.microsoft.com/mssql/server"
-    environment:
-      - "SA_PASSWORD=Your_password123"
-      - "ACCEPT_EULA=Y"
+    container_name: mssql_local2
+    ports:
+      - '1433:1433'
+    volumes:
+      - 'supplyDb:/var/opt/mssql'
+    env_file:
+      - .env
+networks:
+  supplyChainManager:
+    driver: bridge
+volumes:
+  supplyDb:

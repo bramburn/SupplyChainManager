@@ -31,6 +31,9 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    public DbSet<Supplier> Suppliers => Set<Supplier>();
+    public DbSet<Address> Addresses => Set<Address>();
+
 
     //@anton not using the interface
 
@@ -55,10 +58,10 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
         }
 
         var events = ChangeTracker.Entries<IHasDomainEvent>()
-                .Select(x => x.Entity.DomainEvents)
-                .SelectMany(x => x)
-                .Where(domainEvent => !domainEvent.IsPublished)
-                .ToArray();
+            .Select(x => x.Entity.DomainEvents)
+            .SelectMany(x => x)
+            .Where(domainEvent => !domainEvent.IsPublished)
+            .ToArray();
 
         var result = await base.SaveChangesAsync(cancellationToken);
 
